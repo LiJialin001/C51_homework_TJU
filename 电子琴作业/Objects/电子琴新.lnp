@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\电子琴新.obj" 
+TO ".\Objects\电子琴新" 
+PRINT(".\Listings\电子琴新.m51")

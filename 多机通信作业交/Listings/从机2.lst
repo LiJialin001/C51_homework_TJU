@@ -1,0 +1,74 @@
+C51 COMPILER V9.57.0.0   ____2                                                             05/29/2021 20:13:50 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE ____2
+OBJECT MODULE PLACED IN .\Objects\´Ó»ú2.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ´Ó»ú2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\´Ó»
+                    -ú2.lst) TABS(2) OBJECT(.\Objects\´Ó»ú2.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #define NODE2_ADDR 2
+   3          
+   4          unsigned char pointer_2=0;
+   5          unsigned char str[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+   6          unsigned char num[16]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xd8,0x80,0x90,0x88,0x83,0xc6,0xa1,0x86,0x8e};
+   7          
+   8          void display(unsigned char ch){
+   9   1        if((ch>=48)&&(ch<=57)) P2=num[ch-48];
+  10   1        else if((ch>=65)&&(ch<=70)) P2=num[ch-55];
+  11   1      }
+  12          void delay(unsigned int time){
+  13   1        unsigned char i, j;
+  14   1        for(i=0; i<130; i++)
+  15   1               for(j=0; j<time; j++);
+  16   1      }
+  17          void proc_key(unsigned char node_number){
+  18   1        delay(200);
+  19   1        TB8=1;
+  20   1        SBUF=node_number;
+  21   1        while(!TI);
+  22   1        TI=0;
+  23   1        TB8=0;
+  24   1        display(str[pointer_2]);
+  25   1        SBUF=str[pointer_2++];
+  26   1        if(pointer_2>=16)pointer_2=0;
+  27   1        while(!TI);
+  28   1        TI=0;
+  29   1      }
+  30          
+  31          void main(){
+  32   1        SCON=0xe0;
+  33   1        TMOD=0x20;
+  34   1        TH1=TL1=0xfd;
+  35   1        TR1=1;
+  36   1        ES=1;
+  37   1        EA=1;
+  38   1        EX0=1;
+  39   1        IT0=1;
+  40   1        while(1);
+  41   1      }
+  42          
+  43          void button2() interrupt 0{
+  44   1        EX0=0;
+  45   1        delay(20);
+  46   1        EX0=1;
+  47   1        proc_key(NODE2_ADDR);
+  48   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    188    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V9.57.0.0   ____2                                                             05/29/2021 20:13:50 PAGE 2   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     33    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

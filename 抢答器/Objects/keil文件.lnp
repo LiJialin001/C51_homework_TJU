@@ -1,0 +1,3 @@
+".\Objects\text.obj" 
+TO ".\Objects\keil文件" 
+PRINT(".\Listings\keil文件.m51")

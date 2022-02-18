@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\从机1.obj" 
+TO ".\Objects\从机1" 
+PRINT(".\Listings\从机1.m51")

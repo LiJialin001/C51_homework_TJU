@@ -1,0 +1,367 @@
+C51 COMPILER V9.57.0.0   ______                                                            05/17/2021 23:47:43 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE ______
+OBJECT MODULE PLACED IN .\Objects\电子琴.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE 电子琴.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\电
+                    -子琴.lst) TABS(2) OBJECT(.\Objects\电子琴.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #defind FREG 12000000
+*** WARNING C315 IN LINE 2 OF 电子琴.c: unknown #directive 'defind'
+   3          #defind SPEED 100 
+*** WARNING C315 IN LINE 3 OF 电子琴.c: unknown #directive 'defind'
+   4          
+   5          sbit SPEAKER = P^2;
+*** ERROR C146 IN LINE 5 OF 电子琴.c: 'P': invalid base address
+   6          
+   7          unsigned char *pmsc;
+   8          
+   9          unsigned char tune_TH, tnue_TL;
+  10          
+  11          unsigned char dura_TH, dura_TL;
+  12          
+  13          unsigned char new_note;
+  14          
+  15          unsigned char repeat;
+  16          
+  17          unsigned char code musicdata[]={
+  18            0x15,0x08, 0x13,0x04, 0x15,0x04, 0x21,0x0c,
+  19            0x17,0x04, 0x16,0x08, 0x21,0x08, 0x15,0x10,
+  20            0x15,0x08, 0x11,0x04, 0x12,0x04, 0x13,0x08,
+  21            0x12,0x04, 0x11,0x04, 0x12,0x20,
+  22            0x15,0x08, 0x13,0x04, 0x15,0x04, 0x21,0x0c,
+  23            0x17,0x04, 0x16,0x08, 0x21,0x08, 0x15,0x10,
+  24            0x15,0x08, 0x12,0x04, 0x13,0x04, 0x14,0x0c,
+  25            0x07,0x04, 0x11,0x20,
+  26            0x16,0x08, 0x21,0x08, 0x21,0x10, 0x17,0x08,
+  27            0x16,0x04, 0x17,0x04, 0x21,0x10,
+  28            0x16,0x04, 0x17,0x04, 0x21,0x04, 0x16,0x04,
+  29            0x16,0x04, 0x15,0x04, 0x13,0x04, 0x11,0x04,
+  30            0x12,0x20,
+  31            0x15,0x08, 0x13,0x04, 0x15,0x04, 0x21,0x0c,
+  32            0x17,0x04, 0x16,0x08, 0x21,0x08, 0x15,0x10,
+  33            0x15,0x08, 0x12,0x04, 0x13,0x04, 0x14,0x0c,
+  34            0x07,0x04,0x11,0x20,
+  35            0x00,0x00
+  36          };
+  37          
+  38          unsigned char code music_freq_tab[64]={
+  39            0xff, 0xea,
+  40            255-FREQ/24/131/256, 256-FREQ/24/131%256, 
+*** ERROR C202 IN LINE 40 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 40 OF 电子琴.c: 'FREQ': undefined identifier
+  41            255-FREQ/24/147/256, 256-FREQ/24/147%256, 
+*** ERROR C202 IN LINE 41 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 41 OF 电子琴.c: 'FREQ': undefined identifier
+  42            255-FREQ/24/165/256, 256-FREQ/24/165%256, 
+*** ERROR C202 IN LINE 42 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 42 OF 电子琴.c: 'FREQ': undefined identifier
+  43            255-FREQ/24/175/256, 256-FREQ/24/175%256, 
+*** ERROR C202 IN LINE 43 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 43 OF 电子琴.c: 'FREQ': undefined identifier
+C51 COMPILER V9.57.0.0   ______                                                            05/17/2021 23:47:43 PAGE 2   
+
+  44            255-FREQ/24/196/256, 256-FREQ/24/196%256, 
+*** ERROR C202 IN LINE 44 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 44 OF 电子琴.c: 'FREQ': undefined identifier
+  45            255-FREQ/24/221/256, 256-FREQ/24/221%256, 
+*** ERROR C202 IN LINE 45 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 45 OF 电子琴.c: 'FREQ': undefined identifier
+  46            255-FREQ/24/248/256, 256-FREQ/24/248%256, 
+*** ERROR C202 IN LINE 46 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 46 OF 电子琴.c: 'FREQ': undefined identifier
+  47            
+  48            0xff, 0xea,
+  49            255-FREQ/24/262/256, 256-FREQ/24/262%256, 
+*** ERROR C202 IN LINE 49 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 49 OF 电子琴.c: 'FREQ': undefined identifier
+  50            255-FREQ/24/294/256, 256-FREQ/24/294%256,
+*** ERROR C202 IN LINE 50 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 50 OF 电子琴.c: 'FREQ': undefined identifier
+  51            255-FREQ/24/330/256, 256-FREQ/24/330%256, 
+*** ERROR C202 IN LINE 51 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 51 OF 电子琴.c: 'FREQ': undefined identifier
+  52            255-FREQ/24/350/256, 256-FREQ/24/350%256, 
+*** ERROR C202 IN LINE 52 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 52 OF 电子琴.c: 'FREQ': undefined identifier
+  53            255-FREQ/24/393/256, 256-FREQ/24/393%256, 
+*** ERROR C202 IN LINE 53 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 53 OF 电子琴.c: 'FREQ': undefined identifier
+  54            255-FREQ/24/441/256, 256-FREQ/24/441%256, 
+*** ERROR C202 IN LINE 54 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 54 OF 电子琴.c: 'FREQ': undefined identifier
+  55            255-FREQ/24/495/256, 256-FREQ/24/495%256, 
+*** ERROR C202 IN LINE 55 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 55 OF 电子琴.c: 'FREQ': undefined identifier
+  56          
+  57            0xff, 0xea,
+  58            255-FREQ/24/525/256, 256-FREQ/24/525%256, 
+*** ERROR C202 IN LINE 58 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 58 OF 电子琴.c: 'FREQ': undefined identifier
+  59            255-FREQ/24/589/256, 256-FREQ/24/589%256, 
+*** ERROR C202 IN LINE 59 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 59 OF 电子琴.c: 'FREQ': undefined identifier
+  60            255-FREQ/24/661/256, 256-FREQ/24/661%256, 
+*** ERROR C202 IN LINE 60 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 60 OF 电子琴.c: 'FREQ': undefined identifier
+  61            255-FREQ/24/700/256, 256-FREQ/24/700%256, 
+*** ERROR C202 IN LINE 61 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 61 OF 电子琴.c: 'FREQ': undefined identifier
+  62            255-FREQ/24/786/256, 256-FREQ/24/786%256, 
+*** ERROR C202 IN LINE 62 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 62 OF 电子琴.c: 'FREQ': undefined identifier
+  63            255-FREQ/24/882/256, 256-FREQ/24/882%256, 
+*** ERROR C202 IN LINE 63 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 63 OF 电子琴.c: 'FREQ': undefined identifier
+  64            255-FREQ/24/990/256, 256-FREQ/24/990%256, 
+*** ERROR C202 IN LINE 64 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 64 OF 电子琴.c: 'FREQ': undefined identifier
+  65          
+  66            0xff, 0xea,
+  67            255-FREQ/24/1049/256, 256-FREQ/24/1049%256, 
+*** ERROR C202 IN LINE 67 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 67 OF 电子琴.c: 'FREQ': undefined identifier
+  68            255-FREQ/24/1178/256, 256-FREQ/24/1178%256, 
+*** ERROR C202 IN LINE 68 OF 电子琴.c: 'FREQ': undefined identifier
+C51 COMPILER V9.57.0.0   ______                                                            05/17/2021 23:47:43 PAGE 3   
+
+*** ERROR C202 IN LINE 68 OF 电子琴.c: 'FREQ': undefined identifier
+  69            255-FREQ/24/1322/256, 256-FREQ/24/1322%256, 
+*** ERROR C202 IN LINE 69 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 69 OF 电子琴.c: 'FREQ': undefined identifier
+  70            255-FREQ/24/1400/256, 256-FREQ/24/1400%256, 
+*** ERROR C202 IN LINE 70 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 70 OF 电子琴.c: 'FREQ': undefined identifier
+  71            255-FREQ/24/1572/256, 256-FREQ/24/1572%256, 
+*** ERROR C202 IN LINE 71 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 71 OF 电子琴.c: 'FREQ': undefined identifier
+  72            255-FREQ/24/1665/256, 256-FREQ/24/1665%256, 
+*** ERROR C202 IN LINE 72 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 72 OF 电子琴.c: 'FREQ': undefined identifier
+  73            255-FREQ/24/1869/256, 256-FREQ/24/1869%256, 
+*** ERROR C202 IN LINE 73 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 73 OF 电子琴.c: 'FREQ': undefined identifier
+  74          };
+  75          
+  76          unsigned char code music_frequp_tab[64]={
+  77            0xff, 0xea,
+  78            255-FREQ/24/139/256, 256-FREQ/24/139%256,
+*** ERROR C202 IN LINE 78 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 78 OF 电子琴.c: 'FREQ': undefined identifier
+  79            255-FREQ/24/156/256, 256-FREQ/24/156%256,
+*** ERROR C202 IN LINE 79 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 79 OF 电子琴.c: 'FREQ': undefined identifier
+  80            255-FREQ/24/175/256, 256-FREQ/24/175%256, 
+*** ERROR C202 IN LINE 80 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 80 OF 电子琴.c: 'FREQ': undefined identifier
+  81            255-FREQ/24/185/256, 256-FREQ/24/185%256, 
+*** ERROR C202 IN LINE 81 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 81 OF 电子琴.c: 'FREQ': undefined identifier
+  82            255-FREQ/24/208/256, 256-FREQ/24/208%256, 
+*** ERROR C202 IN LINE 82 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 82 OF 电子琴.c: 'FREQ': undefined identifier
+  83            255-FREQ/24/234/256, 256-FREQ/24/234%256, 
+*** ERROR C202 IN LINE 83 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 83 OF 电子琴.c: 'FREQ': undefined identifier
+  84            255-FREQ/24/262/256, 256-FREQ/24/262%256,
+*** ERROR C202 IN LINE 84 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 84 OF 电子琴.c: 'FREQ': undefined identifier
+  85          
+  86            0xff, 0xea,
+  87            255-FREQ/24/278/256, 256-FREQ/24/278%256,
+*** ERROR C202 IN LINE 87 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 87 OF 电子琴.c: 'FREQ': undefined identifier
+  88            255-FREQ/24/312/256, 256-FREQ/24/312%256, 
+*** ERROR C202 IN LINE 88 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 88 OF 电子琴.c: 'FREQ': undefined identifier
+  89            255-FREQ/24/350/256, 256-FREQ/24/350%256, 
+*** ERROR C202 IN LINE 89 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 89 OF 电子琴.c: 'FREQ': undefined identifier
+  90            255-FREQ/24/371/256, 256-FREQ/24/371%256, 
+*** ERROR C202 IN LINE 90 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 90 OF 电子琴.c: 'FREQ': undefined identifier
+  91            255-FREQ/24/416/256, 256-FREQ/24/416%256, 
+*** ERROR C202 IN LINE 91 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 91 OF 电子琴.c: 'FREQ': undefined identifier
+  92            255-FREQ/24/467/256, 256-FREQ/24/467%256, 
+*** ERROR C202 IN LINE 92 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 92 OF 电子琴.c: 'FREQ': undefined identifier
+  93            255-FREQ/24/525/256, 256-FREQ/24/525%256,
+C51 COMPILER V9.57.0.0   ______                                                            05/17/2021 23:47:43 PAGE 4   
+
+*** ERROR C202 IN LINE 93 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 93 OF 电子琴.c: 'FREQ': undefined identifier
+  94          
+  95            0xff, 0xea,
+  96            255-FREQ/24/556/256, 256-FREQ/24/556%256, 
+*** ERROR C202 IN LINE 96 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 96 OF 电子琴.c: 'FREQ': undefined identifier
+  97            255-FREQ/24/624/256, 256-FREQ/24/624%256, 
+*** ERROR C202 IN LINE 97 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 97 OF 电子琴.c: 'FREQ': undefined identifier
+  98            255-FREQ/24/700/256, 256-FREQ/24/700%256, 
+*** ERROR C202 IN LINE 98 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 98 OF 电子琴.c: 'FREQ': undefined identifier
+  99            255-FREQ/24/742/256, 256-FREQ/24/742%256, 
+*** ERROR C202 IN LINE 99 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 99 OF 电子琴.c: 'FREQ': undefined identifier
+ 100            255-FREQ/24/833/256, 256-FREQ/24/833%256, 
+*** ERROR C202 IN LINE 100 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 100 OF 电子琴.c: 'FREQ': undefined identifier
+ 101            255-FREQ/24/935/256, 256-FREQ/24/935%256, 
+*** ERROR C202 IN LINE 101 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 101 OF 电子琴.c: 'FREQ': undefined identifier
+ 102            255-FREQ/24/1049/256, 256-FREQ/24/1049%256, 
+*** ERROR C202 IN LINE 102 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 102 OF 电子琴.c: 'FREQ': undefined identifier
+ 103            
+ 104            0xff, 0xea,
+ 105            255-FREQ/24/1112/256, 256-FREQ/24/1112%256,
+*** ERROR C202 IN LINE 105 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 105 OF 电子琴.c: 'FREQ': undefined identifier
+ 106            255-FREQ/24/1248/256, 256-FREQ/24/1248%256, 
+*** ERROR C202 IN LINE 106 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 106 OF 电子琴.c: 'FREQ': undefined identifier
+ 107            255-FREQ/24/1400/256, 256-FREQ/24/1400%256, 
+*** ERROR C202 IN LINE 107 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 107 OF 电子琴.c: 'FREQ': undefined identifier
+ 108            255-FREQ/24/1484/256, 256-FREQ/24/1484%256,
+*** ERROR C202 IN LINE 108 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 108 OF 电子琴.c: 'FREQ': undefined identifier
+ 109            255-FREQ/24/1618/256, 256-FREQ/24/1618%256, 
+*** ERROR C202 IN LINE 109 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 109 OF 电子琴.c: 'FREQ': undefined identifier
+ 110            255-FREQ/24/1764/256, 256-FREQ/24/1764%256, 
+*** ERROR C202 IN LINE 110 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 110 OF 电子琴.c: 'FREQ': undefined identifier
+ 111            255-FREQ/24/1968/256, 256-FREQ/24/1968%256, 
+*** ERROR C202 IN LINE 111 OF 电子琴.c: 'FREQ': undefined identifier
+*** ERROR C202 IN LINE 111 OF 电子琴.c: 'FREQ': undefined identifier
+ 112          };
+ 113            
+ 114          void delay(unsigned int);
+ 115          void music_play(void);
+ 116          
+ 117          void main(void){
+ 118   1        TMOD=0x11;
+ 119   1        EA=1;
+ 120   1        ET0=1;
+ 121   1        ET1=1;
+ 122   1        TR0=0;
+ 123   1        TR1=0;
+ 124   1        repeat=10000/SPEED;
+*** ERROR C202 IN LINE 124 OF 电子琴.c: 'SPEED': undefined identifier
+C51 COMPILER V9.57.0.0   ______                                                            05/17/2021 23:47:43 PAGE 5   
+
+ 125   1        
+ 126   1        while(1){
+ 127   2          music_play();
+ 128   2          delay(2000);
+ 129   2        }
+ 130   1      }
+ 131          
+ 132          void delay(unsigned int ms){
+ 133   1        unsigned char i, j;
+ 134   1        while(ms--)
+ 135   1          for(i=0; i<2; i++)
+ 136   1              for(j=0; j<122; j++);
+ 137   1      }
+ 138          
+ 139          void decoding(unsigned char *p){
+ 140   1        unsigned char tunenote;
+ 141   1        unsigned char duration;
+ 142   1        unsigned char badu;
+ 143   1        unsigned char yinfu;
+ 144   1        bit shenghao=0;
+ 145   1        tunenote=*p;
+ 146   1        duration=*(p+1);
+ 147   1        shenghao=tunenote>>7;
+ 148   1        badu=(tunenote&0x30)>>4;
+ 149   1        yinfu=tunenote&0x0f;
+ 150   1        if(shenghao){
+ 151   2          tune_TH=music_frequp_tab[badu*16+yinfu*2];
+ 152   2          tune_TL=music_frequp_tab[badu*16+yinfu*2+1];
+*** ERROR C202 IN LINE 152 OF 电子琴.c: 'tune_TL': undefined identifier
+ 153   2        }
+ 154   1        else{
+ 155   2          tune_TH=music_freq_tab[badu*16+yinfu*2];
+ 156   2          tune_TL=music_freq_tab[badu*16+yinfu*2+1];
+*** ERROR C202 IN LINE 156 OF 电子琴.c: 'tune_TL': undefined identifier
+ 157   2        }
+ 158   1        dura_TH=(65536-duration*1000)/256;
+ 159   1        dura_TL=(65536-duration*1000)%256;
+ 160   1      }
+ 161          
+ 162          void music_play(){
+ 163   1        pmsc=musicdata;
+ 164   1        new_note=1;
+ 165   1        TH1=0xff;
+ 166   1        TL1=0xff;
+ 167   1        TR1=1;
+ 168   1        
+ 169   1        while(*pmsc != 0x00);
+ 170   1        TR0=0;
+ 171   1        TR1=0;
+ 172   1        SPEAKER=0;
+*** ERROR C202 IN LINE 172 OF 电子琴.c: 'SPEAKER': undefined identifier
+ 173   1      }
+ 174          
+ 175          void music_tune(void) interrupt 1{
+ 176   1          SPEAKER=~SPEAKER;
+*** ERROR C202 IN LINE 176 OF 电子琴.c: 'SPEAKER': undefined identifier
+ 177   1          TH0=tune_TH;
+ 178   1          TL0=tune_TL;
+*** ERROR C202 IN LINE 178 OF 电子琴.c: 'tune_TL': undefined identifier
+ 179   1      }
+ 180          void music_dura(void) interrupt 3{
+ 181   1        unsigned char i;
+C51 COMPILER V9.57.0.0   ______                                                            05/17/2021 23:47:43 PAGE 6   
+
+ 182   1        if(new_note) {
+ 183   2          decoding(pmsc);
+ 184   2          TH0=tune_TH;
+ 185   2          TL0=tune_TL;
+*** ERROR C202 IN LINE 185 OF 电子琴.c: 'tune_TL': undefined identifier
+ 186   2          TR0=1;
+ 187   2          new_note=0;
+ 188   2          i=0;
+ 189   2        }
+ 190   1        else i++; 
+ 191   1        if(i>=repeat){ 
+ 192   2          TR0=0; 
+ 193   2          pmsc+=2; 
+ 194   2          new_note=1;
+ 195   2          }
+ 196   1          TH1=dura_TH; 
+ 197   1          TL1=dura_TL;
+ 198   1        }
+ 199          
+ 200            
+ 201            
+ 202              
+ 203          
+ 204          
+ 205          
+ 206          
+ 207          
+ 208          
+ 209          
+ 210          
+ 211          
+ 212          
+ 213          
+ 214          
+ 215          
+ 216          
+ 217          
+ 218          
+ 219          
+ 220          
+ 221          
+ 222          
+ 223            
+
+C51 COMPILATION COMPLETE.  2 WARNING(S),  120 ERROR(S)

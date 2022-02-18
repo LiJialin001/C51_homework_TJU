@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\last_homework.obj" 
+TO ".\Objects\结课作业程序" 
+PRINT(".\Listings\结课作业程序.m51")
